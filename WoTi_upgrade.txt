@@ -253,3 +253,7 @@ info
   - navod pro vyplnovani (smernice)  
 
 - u vsech seznamu razeni podle sloupcu
+
+
+=====
+zmena index.php, lide.php, odstraneni funkce aktualizuj()
