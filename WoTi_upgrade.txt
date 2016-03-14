@@ -1,0 +1,255 @@
+POZADAVKY NA VERZI 2.X (16.2.2016)
+----------------------------------
+stavajici stav:
+- tabulky: 
+  zakazky: id, nazev, popis, cinnost(1_xx), stav(0/1)
+  uzivatele: id, prijmeni, jmeno, login, heslo, role (0=neaktivni)
+  dny: id, zakazky_id, uzivatele_id, rok, mesic, den, hodiny
+- role v systemu:
+  0 - nemuze se prihlasit
+  1 - obyc user vidi pouze svoje
+  2 - admin vidi tabulky ostatnich
+  3 - superuser (spravce WoTi) zatim neimplementovan
+- cinnosti: 1_grant, 2_SoW, 3_RITE products, 4_RC products, 5_Other sales, 
+  6_Rezie, 9_Ostatni
+
+nutne dodelat:
+- editace pouze od neuzavreneho mesice dal
+- poznamky k danemu zaznamu (projekt, den)
+- kalendar (svatky, vikendy) barevne vyznacit
+- lepsi oddeleni kategorii
+- admin: administrace zakazek (pridavani, zmena stavu) formular
+- moznost smazat hodiny aniz by musel zadat 0 
+
+napady:
+- uzavreni zakazky/vsech zakazek pro dany mesic spravcem zakazky/spravcem WoTi
+- pro orientaci zobrazeni poctu hodin odpovidajici uvazku uzivatele
+- na hlavni strance rovnou prihlaseni
+- admin meni stav zakazky, vklada novou, urci vlastnika
+- tabulka zakazky pridat vlastnika zakazky (= odpovedna osoba) 
+- vlastnik meni stav zakazky, urcuje lidi, kterym se ma aktivovat/zobrazit
+- kazdy ucet - administrace zobrazeni (ktere zakazky chci videt)
+- uzivatel si vybira zakazky, ktere chce videt / jsou mu prideleny vlastnikem zakazky
+- pri pridani nove zakazky se zobrazi upozorneni nebo se objevi ve working timu
+- WoTi ma byt podle skutecnosti, mel by scitat prescasy
+- scitani prescasu, evidence NV
+- pokud clovek nema dost hodin odp. uvazkum a nema NV, nemuze uzavrit mesic
+- admin by mel videt, kdo ma uzavreno, mesic muze uzavrit, pokud maji vsichni
+- vygenerovani a export / tisk oficialniho WoTi - kazdy uzivatel muze za sebe
+- zakazku administrativa uvolnit pro vsechny?
+- deaktivace zakazky automaticky az vyprsi platnost
+- navrh OP: formular kdo, datum, projekt, pocet hodin, poznamka, odeslani
+- seznam zakazek by se dal generovat ve WoTi (ted xls tabulka, nesouvisi s ucetnictvim)
+- tabulka na nastenku (kalendar) v systemu WoTi
+- vkladani nove zakazky: automaticky nabidnout nazev (pohoda ma 9 pozic 
+  na oznaceni zakazky)
+- LB: naprac. hodiny vs. NV zatim v ramci 1 mesice
+- pridat status do tabulky uzivatele?
+- stary WT importovat do databaze nebo zacit od data nasazeni?
+- vsechny nazvy anglicky
+- jak zobrazovat poznamky?
+  moznost:  formular pro vkladani podle OP vc. poznamky, pod nim tabulka pro cely mesic
+            v kazde bunce pocet hodin = odkaz, po rozkliknuti se objevi detail, mozno menit 
+            nevyhoda - clovek nevidi vsechny poznamky na danou zakazku
+- budou poznamky povinne pro kazdou bunku? jak vlozit souhrnnou poznamku pro danou zakazku
+  za cely mesic?           
+- vlasnik projektu vidi tabulky ostatnich, kt. delaji na jeho projektu
+            
+navrh novych tabulek:
+- zakazky: id, cinnost (?), nazev, popis, vlastnik (uzivatele_id), 
+  platnost od (datum vlozeni do WoTi), platnost do, stav
+- uzivatele: id, prijmeni, jmeno, login, heslo, role, stav (?)
+- dny: id, zakazky_id, uzivatele_id, rok, den, hodiny, poznamka
+- mesice: id, rok, mesic, uzivatele_id, stav (open/closed/locked)
+- ??: id, uzivatele_id, zakazky_id (= zakazky k zobrazeni)
+- kalendar?
+- platnost zakazky od = datum vlozeni?
+- moznost rozlisit zamestnance od DPP, prip. na fakturu
+
+PRUZKUM 16.2.2016
+-----------------
+- MH ma zajem o spravu svych zakazek
+- vsichni krome PO maji par zakazek, vyber zakazek k zobrazeni je zbytecny
+- PO hodne zakazek, rozlisit aktivni / v zaruce
+
+POZNATKY Z KONZULTACE 16.2.2016 (17.2.2016)
+-------------------------------------------
+- razeni dotazem do databaze je rychlejsi nez razeni v kontroleru, 
+  ale pro maly pocet zaznamu je to jedno
+- funkce s parametrem, podle ceho chci radit, neni vyhodne, musim pouzivat nazvy sloupcu 
+  i mimo tridu pracujici s databazi
+  napr: get_zakazky_inactive_ordered($column)
+- ClassDatabase pouze dotazy get_all, get_active, get_inactive,
+  razeni bude zajistovat az zobrazovaci kod
+- "vlastnik" zakazky bude pouze pro informaci, kdo je zodpovedna osoba, zadny vliv na opravneni
+- tabulka opravneni: id, uzivatele_id, zakazky_id, opravneni
+  0 = nezobrazovat
+  1 = zobrazovat
+  2 = editor (spravce)
+  => zakazka muze mit vice editoru
+  => pri zakladani nove zakazky vyzaduje 2 kroky - tabulka zakazky a tabulka opravneni
+    (nelze udelat najednou, kdyby jeden ze zapisu selhal)
+  => vlastnik zakazky nemusi byt editor
+- prechod na novou db: zkopirovani stare, rozsireni
+- RC products: oddelit zakazky aktivni a v zaruce
+  napad: zakazky v zaruce by se nemusely zobrazovat v tabulce, ale vyhledaly by se v seznamu
+  a hodiny by se vkladaly pomoci formulare, jak navrhoval OP
+- vyber zakazek k zobrazeni zbhytecny, zakazky jsou pridelene editory / spravecem WoTi
+- stav uzivatele je zbytecny, staci role
+- tabulka uzivatele pridat uvazek, prip. dalsi info zamestnanec/DPP/...
+- pro editory zakazek a spravce WoTi: stranka "lide"
+- spravce WoTi vkladani/zmena opravneni uzivatelu
+- editor nebude moci menit working timy "svych lidi", pouze je vidi
+- spravce WoTi muze menit vsechno -> zachovat zaznam o zmene a kdo zmenu udelal?
+
+17.2.2016
+---------
+- Priklad: obsah-working-time pouziva ClassZakazky, ktera pouziva ClassDatabase
+  ClassZakazky pouziva nazvy sloupcu v tabulce jako key v poli
+  pole je dal predavano do obsah-working-time
+  v ClassZakazky opet funkce _all, _active, _inactive
+  co s tim?
+- pozadavek LB: nejmensi jednotka bude 15 min
+- zobrazeni, kdo je prihlasen (zajimave pro ty, kdo vyplnuji za ostatni)
+- zakazky: nazev -> oznaceni, popis -> nazev
+
+= NAVRH TABULEK DB =
+  zakazky:  id
+            cinnost (?)
+            nazev
+            popis
+            uzivatele_id (odpovedny)
+            od (datum vlozeni do WoTi)
+            do
+            stav
+  uzivatele:  id
+              prijmeni
+              jmeno
+              login
+              heslo
+              role
+              uvazek (uvazek/DPP)
+  dny:  id
+        zakazky_id
+        uzivatele_id
+        rok
+        mesic
+        den
+        hodiny
+        poznamka
+  mesice: id
+          rok
+          mesic
+          uzivatele_id
+          stav (open/closed/locked)
+  opravneni:  id
+              uzivatele_id
+              zakazky_id
+              opravneni
+  kalendar?
+
+19.2.2016
+---------
+- zprovozneni woti na vps.brouq.cz
+- pristup pres WinSCP
+predelat:
+- tridy: staticke metody pro preklad nazvu sloupcu v tabulkach na cislo
+- tridy: metody set_..., get_... - nepredavat pole, ale jednotlive hodnoty
+
+21.2.2016
+---------
+- trida ClassSablona - nahrazuje build
+- zruseno menu.php, odhlasit.php -> sablona (view)
+- zruseny stranky obsah-... -> kontroler
+
+22.2.2016
+---------
+- trida ClassDatabase 3 pripady: get_all_..., get_active_..., get_inactive_...
+- souvisejici uprava ClassZakazky, ClassUzivatele
+- razeni se bude provadet v controleru, ne dotazem do db
+- submenu
+- rozvrzeni stranek
+
+23.2.2016
+---------
+- nova trida ClassZakazka 
+- vraci misto pole jednotlive promenne
+- ClassDatabase tvori seznamy objektu Zakazka
+- upraveny prislusne stranky zakazky, working-time
+
+24.2.2016
+---------
+- ClassZakazky jen preklada pole na pole -> zruseno
+- upraveny prislusne stranky zakazky, working-time
+- vystupy z databaze:
+  mysql_fetch_array($result, MYSQL_ASSOC) ... key jsou nazvy sloupcu 
+  mysql_fetch_array($result, MYSQL_NUM) = mysql_fetch_row($result) ... cisla
+  mysql_fetch_array($result, MYSQL_BOTH) ... oboji najednou
+  mysql_fetch_row($result, MYSQL_ASSOC) ... funguje taky, i kdyz nema
+  -> MYSQL_NUM
+- ClassZakazka: pole, ktere prirazuje nazvu sloupce cislo (poradi sloupce v databazi)
+  pri zmene poradi v databazi staci zmenit zde
+- nova trida ClassUzivatel
+- upraveny prislusne stranky lide, zakazky
+- trida ClassUzivatele zajistuje overovani uzivatelu, formulare atd., 
+  pouziva objekty Zakazka
+
+  ======================================================================
+= ROLE V SYSTEMU =
+  0 - nemuze se prihlasit
+  1 = user - vidi jen sebe a u ostatnich jen zakl. info, meni pouze svoje
+  2 = admin - vidi vse, meni vse, zaklada nove lidi, zakazky, urcuje editory zakazky
+  3 = superuser - vidi vse, meni vse, zaklada nove lidi, zakazky, muze resetovat hesla
+
+= OPRAVNENI K ZAKAZCE =
+  0 = ne - zakazku vubec nevidi
+  1 = ano - zakazku ma prirazenou
+  2 = editor - muze menit info o zakazce, prirazovat lidi
+
+= VAZBY =
+  admin, superuser je editorem vsech zakazek
+  
+= DESIGN STRANEK =
+uvodni stranka
+  - bez submenu 
+  - formular s prihlasenim, vyber z uzivatelu s opravnenim > 0
+  - viditelnost vzdy
+lide
+  - submenu, viditelnost pro uzivatele > 0
+  - default seznam vsech (i s opravnenim 0) lidi, 
+    odkaz Edit -> otevreni dalsi stranky s formularem -> po odeslání vypis "probehlo"
+    podle opravneni prihlaseneho:
+      1: u vsech zakl. info, u sebe moznost zmenit info a heslo
+      2: u vsech vsechno, u vsech moznost zmenit info, u sebe heslo
+      3: u vsech vsechno, u vsech moznost zmenit info, u sebe heslo
+      zmena hesla na jine strance v submenu?
+      POZN: heslo se vyresetuje, nemusi znat puvodni, hesla se nesmi nikde zobrazovat
+  - pridat noveho cloveka pro > 1
+zakazky 
+  - submenu, viditelnost pro uzivatele > 0
+  - default prehled aktivnich zakazek a zakazek s bezici zarukou, 
+    odkaz Tisk prehledu
+    odkaz Edit -> otevreni dalsi stranky s formularem -> po odeslání vypis "probehlo"
+    podle opravneni prihlaseneho:
+      1: u vsech zakl. info, u zakazek s opravnenim 2 moznost menit info a prirazovat lidi
+      2: u vsech vsechno, u vsech moznost menit vse
+      3: u vsech vsechno, u vsech moznost menit vse
+working time
+  - default working time 
+    seznam mesicu se stavem neuzavreny/uzavreny/zamceny(odevzdany vykaz)
+    uzivatel vidi jen sebe (bez ohledu na opravneni) a jemu pridelene zakazky
+    (aktivni, se zarukou, trvale)
+    proklik na tabulku WT 
+    - tlacitka uzavrit, tisk vykazu
+    - u tabulky uz nebudou sipky na dalsi mesice
+  - nastenka - kalendar (tento mesic, sipky predchozi dalsi)
+    tlacitko Tisk kalendare
+  - moje zakazky pro editory - seznam zakazek, kde je prihlaseny uzivatel editorem
+    soucty hodin celkem
+    proklik na seznam mesicu
+    - proklik na tabulku WT pro danou zakazku, zobrazeni lide, kteri maji zakazku pridelenou 
+info
+  - info o verzi 
+  - navod pro vyplnovani (smernice)  
+
+- u vsech seznamu razeni podle sloupcu
