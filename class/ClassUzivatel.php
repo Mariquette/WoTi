@@ -11,7 +11,16 @@ class Uzivatel
   
   public function __construct($array = false)
   {
-    if($array == false)
+    if((is_array($array)) AND (count($array)==6))
+    {
+      $this->set_id($array["id"]);
+      $this->set_prijmeni($array["prijmeni"]);
+      $this->set_jmeno($array["jmeno"]);
+      $this->set_login($array["login"]);
+      $this->set_heslo($array["heslo"]);
+      $this->set_role($array["role"]);
+    }
+    else
     {
       $this->id = 0;
       $this->prijmeni = "";
@@ -19,10 +28,6 @@ class Uzivatel
       $this->login = "";
       $this->heslo = "";
       $this->role = 1;
-    }
-    else
-    {
-      $this->from_array($array);
     }
   }
   
@@ -78,36 +83,6 @@ class Uzivatel
     return $this->role;
   }
   
-  public function from_array($array)
-  /*
-  naplni promenne z pole
-  POCET PRVKU POLE !!
-  */
-  {
-    if((is_array($array)) AND (count($array)==6))
-    {
-      $this->set_id($array["id"]);
-      $this->set_prijmeni($array["prijmeni"]);
-      $this->set_jmeno($array["jmeno"]);
-      $this->set_login($array["login"]);
-      $this->set_heslo($array["heslo"]);
-      $this->set_role($array["role"]);
-      return true;
-    }
-
-    return false;
-    //vypis chyby 
-  }
-
-  public function to_array()
-  /*
-  vytvori pole z promennych
-  */
-  {
-    $array = array();
-    return $array;
-  }
-
 //------------------------------ private functions -------------------------------  
 
 }//konec tridy

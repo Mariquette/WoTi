@@ -27,28 +27,27 @@ if(isset($_GET["logout"]))
 	session_unset();
 	if(Util::is_logged())
 	{
-		$obsah .="odhlaseni se nezdarilo";	
+		$obsah .= "<p>Odhlášení se nezdařilo.</p>";	
 	}
 	else
 	{
-		$obsah .=$logged->get_prijmeni()." ".$logged->get_jmeno()." uspesne odhlasen";	
+		$obsah .= "<p>Odhlášení proběhlo úspěšně.</p>";	
 	}
 	goto OUTPUT;
 }
    
-//prihlaseni uzivatele
+// prihlaseni uzivatele
 if(isset($_POST["uzivatel"]) AND isset($_POST["heslo"]) AND isset($_POST["prihlasit"]))
 {
 	if(Util::login($_POST["uzivatel"], $_POST["heslo"]))
 	{
 		if($logged=Util::is_logged())		
 		{
-			//$obsah .= "<h2>Uživatel <b>".$logged["prijmeni"]." ".$logged["jmeno"]."</b> úspěšně přihlášen.</h2>";
-			$obsah .= "<h2>Uživatel <b>".$logged->get_prijmeni()." ".$logged->get_jmeno()."</b> úspěšně přihlášen.</h2>";
+			$obsah .= "<p>Uživatel <b>".$logged->get_prijmeni()." ".$logged->get_jmeno()."</b> byl úspěšně přihlášen.</p>";
 			goto OUTPUT;
 		}	
 	}
-	$obsah .="<p>prihlaseni se nezdarilo, zkuste to znovu:</p>";
+	$obsah .="<p>Přihlášení se nezdařilo, zkuste to znovu:</p>";
 	$obsah .= LideViews::prihlas_formular($data->get_uzivatele_active(), $_POST["uzivatel"], FileName);
 	goto OUTPUT;
 }
@@ -56,16 +55,14 @@ if(isset($_POST["uzivatel"]) AND isset($_POST["heslo"]) AND isset($_POST["prihla
 // prihlaseny uzivatel
 if($logged=Util::is_logged())
 {
-	$obsah .="<p>aktualne prihlasen: ".$logged->get_prijmeni()." ".$logged->get_jmeno()."</p>";
+	$obsah .="<p>Aktuálně je přihlášen: ".$logged->get_prijmeni()." ".$logged->get_jmeno()."</p>";
 	goto OUTPUT;
 }
 
 // konec
+$obsah .= LideViews::prihlas_formular($data->get_uzivatele_active(), "", FileName);
 
-    $obsah .= LideViews::prihlas_formular($data->get_uzivatele_active(), "", FileName);
-
-  OUTPUT:
-
-    echo Sablona::get_html(DirRoot, FileName, Title, $obsah);  
+OUTPUT:
+  echo Sablona::get_html(DirRoot, FileName, Title, $obsah);  
 
 ?>

@@ -8,27 +8,23 @@ class Zakazka
   private $cinnost;
   private $stav;
   
-  public static $columns = array(
-    "id" => 0,
-    "nazev" => 1,
-    "popis" => 2,
-    "cinnost" => 3,
-    "stav" => 4
-    );
-  
   public function __construct($array = false)
   {
-    if($array == false)
+    if((is_array($array)) AND (count($array)==5))
+    {
+      $this->set_id($array["id"]);
+      $this->set_nazev($array["nazev"]);
+      $this->set_popis($array["popis"]);
+      $this->set_cinnost($array["cinnost"]);
+      $this->set_stav($array["stav"]);
+    }
+    else
     {
       $this->id = 0;
       $this->nazev = "";
       $this->popis = "";
       $this->cinnost = "";
       $this->stav = 1;
-    }
-    else
-    {
-      $this->from_array($array);
     }
   }
   
@@ -76,46 +72,6 @@ class Zakazka
     return $this->stav;
   }
   
-  public function from_array($array)
-  /*
-  naplni promenne z pole
-  POCET PRVKU POLE !!
-  */
-  {
-    if((is_array($array)) AND (count($array)==5))
-    //if((is_array($array)) AND (count($array)==count(self::$columns)))
-    {
-      $this->set_id($array["id"]);
-      $this->set_nazev($array["nazev"]);
-      $this->set_popis($array["popis"]);
-      $this->set_cinnost($array["cinnost"]);
-      $this->set_stav($array["stav"]);
-      /*
-      $this->set_id($array[self::$columns["id"]]);
-      $this->set_nazev($array[self::$columns["nazev"]]);
-      $this->set_popis($array[self::$columns["popis"]]);
-      $this->set_cinnost($array[self::$columns["cinnost"]]);
-      $this->set_stav($array[self::$columns["stav"]]);
-      */
-      return true;
-    }
-    return false;
-    //vypis chyby 
-  }
-  public function to_array()
-  /*
-  vytvori pole z promennych
-  */
-  {
-    $array[self::$columns["id"]] = $this->id;
-    $array[self::$columns["nazev"]] = $this->nazev;
-    $array[self::$columns["popis"]] = $this->popis;
-    $array[self::$columns["cinnost"]] = $this->cinnost;
-    $array[self::$columns["stav"]] = $this->stav;
-    return $array;
-  }
-
-
   
 //------------------------------ private functions -------------------------------  
 

@@ -29,6 +29,22 @@
     border: 0px solid black;
   }
   
+  .add
+  {
+    margin: 1em;
+    border: 0px solid black;
+    font-family: sans-serif;
+    color: green;
+  }
+  
+  .edit
+  {
+    margin: 1em;
+    border: 0px solid black;
+    font-family: sans-serif;
+    color: red;
+  }
+  
   .none
   {
     display: none;
@@ -287,6 +303,16 @@
   }
 
   td.zmena_hesla_formular
+  {
+    width: 10em;
+  }
+
+  td.add
+  {
+    width: 10em;
+  }
+
+  td.edit
   {
     width: 10em;
   }

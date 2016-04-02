@@ -1,2 +1,0 @@
-# WoTi
-- nutne doplnit
