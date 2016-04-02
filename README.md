@@ -1,1 +1,2 @@
 # WoTi
+- nutne doplnit
