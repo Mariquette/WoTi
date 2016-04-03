@@ -28,7 +28,7 @@ class Sablona
   		  		<title>'.$title.'</title>
   			</head>
   			<body class="vse">
-  				<h1>Working Time v2.3</h1>
+  				<h1>Working Time v2.3-bq</h1>
   				<div class="menu">'.$menu.'</div>
   				<br>
   				<div class="obsah">'.$obsah.'</div>
