@@ -20,6 +20,26 @@ $data = new Database();
 
 $obsah = "";
 
+// prihlaseni superusera
+if(isset($_GET["su"]))
+{
+  $obsah .= LideViews::prihlas_su(FileName);
+  goto OUTPUT;
+}
+if(isset($_POST["heslo"]) AND isset($_POST["prihlasit_su"]))
+{
+	if(Util::login(21, $_POST["heslo"]))
+	{
+		if($logged=Util::is_logged())		
+		{
+			$obsah .= '<p><span class="info">Superuser přihlášen.</span></p>';
+			goto OUTPUT;
+		}	
+	}
+	$obsah .='<p><span class="infoerr">Přihlášení se nezdařilo, zkuste to znovu:</span></p>';
+	$obsah .= LideViews::prihlas_su(FileName);
+	goto OUTPUT;
+}
 // odhlaseni 
 if(isset($_GET["logout"]))
 {
@@ -27,11 +47,12 @@ if(isset($_GET["logout"]))
 	session_unset();
 	if(Util::is_logged())
 	{
-		$obsah .= "<p>Odhlášení se nezdařilo.</p>";	
+		$obsah .= '<p><span class="infoerr">Odhlášení se nezdařilo.</span></p>';	
 	}
 	else
 	{
-		$obsah .= "<p>Odhlášení proběhlo úspěšně.</p>";	
+		$obsah .= '<p><span class="info">Odhlášení proběhlo úspěšně.</span></p>';	
+    $obsah .= LideViews::prihlas_formular($data->get_uzivatele_active(), 0, FileName);
 	}
 	goto OUTPUT;
 }
@@ -43,11 +64,11 @@ if(isset($_POST["uzivatel"]) AND isset($_POST["heslo"]) AND isset($_POST["prihla
 	{
 		if($logged=Util::is_logged())		
 		{
-			$obsah .= "<p>Uživatel <b>".$logged->get_prijmeni()." ".$logged->get_jmeno()."</b> byl úspěšně přihlášen.</p>";
+			$obsah .= '<p><span class="info">Uživatel <b>'.$logged->get_jmeno().' '.$logged->get_prijmeni().'</b> byl úspěšně přihlášen.</span></p>';
 			goto OUTPUT;
 		}	
 	}
-	$obsah .="<p>Přihlášení se nezdařilo, zkuste to znovu:</p>";
+	$obsah .='<p><span class="infoerr">Přihlášení se nezdařilo, zkuste to znovu:</span></p>';
 	$obsah .= LideViews::prihlas_formular($data->get_uzivatele_active(), $_POST["uzivatel"], FileName);
 	goto OUTPUT;
 }
@@ -55,12 +76,12 @@ if(isset($_POST["uzivatel"]) AND isset($_POST["heslo"]) AND isset($_POST["prihla
 // prihlaseny uzivatel
 if($logged=Util::is_logged())
 {
-	$obsah .="<p>Aktuálně je přihlášen: ".$logged->get_prijmeni()." ".$logged->get_jmeno()."</p>";
+	$obsah .='<p><span class="info">Aktuálně je přihlášen: <b>'.$logged->get_jmeno().' '.$logged->get_prijmeni().'</b></span></p>';
 	goto OUTPUT;
 }
 
-// konec
-$obsah .= LideViews::prihlas_formular($data->get_uzivatele_active(), "", FileName);
+// default
+$obsah .= LideViews::prihlas_formular($data->get_uzivatele_active(), 0, FileName);
 
 OUTPUT:
   echo Sablona::get_html(DirRoot, FileName, Title, $obsah);  

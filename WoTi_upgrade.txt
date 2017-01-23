@@ -1,6 +1,6 @@
 POZADAVKY NA VERZI 2.X (16.2.2016)
 ----------------------------------
-stavajici stav:
+stavajici stav (v 1.3):
 - tabulky: 
   zakazky: id, nazev, popis, cinnost(1_xx), stav(0/1)
   uzivatele: id, prijmeni, jmeno, login, heslo, role (0=neaktivni)
@@ -238,10 +238,19 @@ predelat:
 - trida ClassOutputs = priprava vystupu pro export
 - export souctu do .csv v kontroleru lide.php
 
-23.3.2016
+24.3.2016
 ---------
 - zalozeni v2.3
 - trida ClassDen
+
+28.3.2016
+---------
+- ??
+
+29.3.2016
+---------
+- info.php
+- nova trida classPoznamka
 
 DODELAT:
 - ClassDen prazdny kontruktor?
@@ -324,3 +333,236 @@ editor muze menit zakazku
 zakazky a uzivatele se nebudou mazat (kvuli vazbam)
 
   ======================================================================
+
+14.9.2016 - dalsi napady:
+- 2 tabulky WT: 
+  1.  podle pravdy pro zamestnance - slouzi jako podklad pro odhady na dalsi zakazky
+  2.  oficialni - vyplnuji urceni lide, mozno vytvorit jako kopii 1. WT 
+      s moznosti presunu hodin mezi zakazkami, musi obsahovat cas zacatku, konce,
+      prestavky
+      
+14.-15.9.2016
+-------------
+- LideViews, ZakazkyViews: styly, uprava html, select
+- Uzivatel, Zakazka: to_array();
+- Database: edit_zakazka, add_zakazka, edit_uzivatel
+  + prislusne Views a kontrolery
+  vytvoreni noveho - jak vyresit neexistujici id? (zobrazeni detailu na vytvoreny objekt)
+  
+18.9.2016
+---------
+- uprava
+- test upgradu db - ok: 
+  export struktury
+  export dat
+  import struktury do nove (vypnout autoincrement)
+  zapnout autoincrement
+  zkontrolovat id
+  vlozeni noveho zaznamu
+  zkontrolovat id
+  POZN: pokud by nefungovalo, pridat id->moje, novy sloupec db_id
+        vkladani noveho zaznamu -> zjistit nejvyssi pridelene id, +1
+        (ClassRepository::get_new_link_id())
+  
+19.9.2016
+---------
+- Database: add_uzivatel + prislusne Views a kontrolery
+- nahled na detail po vytvoreni noveho (zakazky/uzivatele)
+- nova trida Option
+- Database: fake db pro: role, stav zakazky
+- LideViews, ZakazkyViews: edit, add - rolovaci seznam
+
+20.9.2016
+---------
+- osetreni vstupu z formularu add, edit pro zakazky lide
+  nefunguje styl err!
+- generovani pdf - Outputs
+- zakazka: novy parametr kategorie
+
+21.9.2016
+---------
+- delka retezce strlen nefunguje s ceskymi znaky, pouzivat mb_strlen
+  http://blog.zdenekvecera.cz/item/utf-8-mysql-kodovani-a-php-funkce-pro-praci-s-retezci-strlen-substr-aj
+  trida Util
+- vygenerovani pdf Prehled zakazek
+- doplneni tridy Mesic, nova trida Opravneni - zatim nepouzite
+
+22.9.2016
+---------
+- generovani pdf - tabulka
+- minikalendar
+
+PDF
+===
+- trida pro generovani pdf: http://www.fpdf.org/
+- navod na vygenerovani fontu: http://zaachi.com/2008/09/02/fpdf-jak-na-ceske-znaky.html
+- generovani fontu pro fpdf: 
+  1) http://fpdf.fruit-lab.de/ map=cp1250
+    krome Courier delaji ruzne mezery mezi pismeny
+  2) http://www.fpdf.org/makefont/
+- http://fpdf.de/downloads/add-ons/fit-text-to-cell.html
+- http://www.fpdf.org/en/script/script3.php
+===
+
+26.9.2016
+---------
+- vytvoreni nove tabulky 'mesice', 'opravneni'
+- prehled zaznamu z tabulky mesice a opravneni
+- zobrazeni informace z tabulky opravneni v detailu zakazky
+
+3.-6.10.2016
+------------
+- seznam mesicu
+- detail zakazky - pokus s fieldset
+- predelani nabidky pro mesic, rok
+- ikonky stav mesice
+- prehled vyplnenosti pro admina
+- v tabulce zakazky nahrazen sloupec "cinnost" sloupcem "kategorie"
+
+17.-20.10.2016
+--------------
+- inner join
+- konzultace: 
+  dotazy inner join
+  vzhled detailu
+  styly, usporadani tagu
+- ZakazkyViews, LideViews, Views, Sablona formatovani, styly
+- Database: add opravneni
+            remove opravneni
+- ZakazkyViews detail - pridani/odebrani cloveka
+
+24.-25.10.2016
+--------------
+- pridavani/odebirani lidi u zakazky
+- styly
+
+31.10.-3.11.2016
+----------------
+- uprava hlavicky pro vytistene soubory
+- tisk kalendare na nastenku
+- vygenerovani fontu jinym zpusobem
+- formatovani kalendare
+- sipky u listovani mesici/roky
+- Views zobraz_mesic
+
+7.-10.11.2016
+-------------
+- Views vypln_mesic
+- Den is_valid, chybove hlasky
+- zobrazeni pouze prirazenych zakazek (jako pracovnik)
+- moje zakazky
+- kontrola
+
+14.11.2016
+----------
+- odstraneni chyby pri editaci cloveka
+
+27.12.2016
+----------
+- kontrola, moje zakazky - bez tlacitka vyplnit
+- kontrola - detail wt cloveka - zpet, spravna fce sipek
+- Database: add mesic - nevyzkouseno!!
+
+28.12.2016
+----------
+- uzavirani wt
+- Database: add_mesic, edit_mesic
+
+29.12.2016
+----------
+- uzavreni potvrzovaci formular
+- zamceni mesice
+
+30.12.2016
+----------
+- otevreni mesice
+- zamceni potvrzovaci formular
+- otevreni potvrzovaci formular
+- styly tlacitek
+- konstanty v objektech
+
+31.12.2016
+----------
+- celkovy soucet hodin na zakazce 
+- prehled zakazek - omezeni poctu znaku u popisu zakazky
+- design seznamu
+- zakazky, lide, working-time - omezeni podle roli/opravneni k zakazce
+
+1.1.2017 - BQ
+-------------
+* zmena hesla administratorem pro kterykoli ucet (odkaz z detailu uzivatele)
+* moje-zakazky: pro admina viditelne vsechny zakazky
+* moje-zakazky: proklik na detail zakazky
+* working-time (w-t, moje zakazky, kontrola): zobrazeni i neaktivni zakazky/uzivatele pokud existuje
+  v danem mesici zaznam 
+
+3.1.2017
+--------
+- zakazka, uzivatel: self::data
+- export zakazek - sloupec odpovedny misto stavu 
+
+4.1.2017
+--------
+- info
+
+5.1.2017
+--------
+- novy sloupec v tabulce zakazky: 
+  obdobi
+- nove sloupce v tabulce uzivatele:
+  zkratka = inicialy
+  dovolena (zatim se nezobrazuje)
+  uvazek - nazev sablony pro generovani oficialniho wt (zatim se nezobrazuje)
+- info
+- zaloha obou databazi
+- import nove struktury nevysel
+- vytvorena kopie stare db
+
+6.1.2017
+--------
+- rucni upravy v db (ostra RITE)
+  * zakazky: cinnost->kategorie (int)
+  * zakazky: obdobi 
+  * zakazky: stav->vice stavu
+  * uzivatele: zkratka, dovolena, uvazek
+  * mesice: id
+            rok
+            mesic
+            uzivatele_id
+            stav
+  * opravneni:  id
+                uzivatele_id
+                zakazky_id
+                opravneni
+
+7.1.2017
+--------
+- editace zakazek:
+  ukoncene - vyplneni pouze odpovedne osoby
+- pristup pro superusera, vsude schovan
+- oprava trida uzivatel: is_editor: $data = new Database;
+  self::$data nefunguje !!
+- lide - schovano pridat v submenu
+- Database: get_zakazky_4uzivatel_a_mesic razeni podle kategorie
+- uprava pdf vystupu
+- zaloha upravene db na RITE srv
+- mesice starsi nez 1/2017 jsou umele zamcene:
+  Views: get_list_uzivatele
+  Mesic: set_stav
+
+UDELAT:
+- penetracni testy
+- v database v dotazech pouzivat konstanty
+- ukoncene zakazky aktualizovat
+
+NAPADY PRO PRISTE:
+- dovolena, uvazek - pripraveno, staci upravit views
+- export celkoveho prehledu - Outputs mesic2csv upravit
+- generovani pdf oficialniho wt (za 3 mesice?)
+- poznamky
+- moznost smazat hodiny, aniz by se musela zadavat 0
+- zobrazit pro vyplnovani: pocet hodin odpovidajici uvazku
+- evidence prescasu, NV
+- uzavreni mesice az po uplatneni dostatecneho poctu hodin
+- admin by mohl menit wt vsech lidi - zaznam o zmene?
+- nejmensi jednotka 15 min

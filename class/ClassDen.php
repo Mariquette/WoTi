@@ -10,6 +10,14 @@ class Den
   private $den;
   private $hodiny;
     
+  private $id_err;
+  private $zak_err;
+  private $uziv_err;
+  private $rok_err;
+  private $mesic_err;
+  private $den_err;
+  private $hodiny_err;
+  
   public function __construct($array = false)                     
   {
     if((is_array($array)) AND (count($array)==7))
@@ -32,6 +40,15 @@ class Den
       $this->den = date("d");
       $this->hodiny = 0;
     }
+    
+    $this->id_err = "";
+    $this->zak_err = "";
+    $this->uziv_err = "";
+    $this->rok_err = "";
+    $this->mesic_err = "";
+    $this->den_err = "";
+    $this->hodiny_err = "";
+    
   }
 
 //------------------------------ public functions -------------------------------  
@@ -92,6 +109,100 @@ class Den
   public function get_hodiny()
   {
     return $this->hodiny;
+  }
+  
+  public function get_id_err()
+  {
+    return $this->id_err;
+  }
+  public function get_zak_err()
+  {
+    return $this->zak_err;
+  }
+  public function get_uziv_err()
+  {
+    return $this->uziv_err;
+  }
+  public function get_rok_err()
+  {
+    return $this->rok_err;
+  }
+  public function get_mesic_err()
+  {
+    return $this->mesic_err;
+  }
+  public function get_den_err()
+  {
+    return $this->den_err;
+  }
+  public function get_hodiny_err()
+  {
+    return $this->hodiny_err;
+  }
+  
+  public function to_array()
+  {
+    $array["id"] = $this->id;
+    $array["zakazky_id"] = $this->zak_id;
+    $array["uzivatele_id"] = $this->uziv_id;
+    $array["rok"] = $this->rok;
+    $array["mesic"] = $this->mesic;
+    $array["den"] = $this->den;
+    $array["hodiny"] = $this->hodiny;
+    return $array;
+  }
+
+  public function is_valid()
+  {
+    $return = true;
+    /*
+    if(!Util::is_number($this->id))
+    {
+      $return = false;
+      $this->id_err = "Povolené znaky pro parametr Id jsou číslice 0-9.";
+    }
+    */
+    if(!Util::is_number($this->zak_id)) //nezjistuje, zda existuje v db!
+    {
+      $return = false;
+      $this->zak_err = "Neplatná zakázka.";
+    }
+    if(!Util::is_number($this->uziv_id)) //nezjistuje, zda existuje v db!
+    {
+      $return = false;
+      $this->uziv_err = "Neplatný uživatel.";
+    }
+    if(!Util::is_year($this->rok))
+    {
+      $return = false;
+      $this->rok_err = "Neplatný rok.";
+    }
+    if(!Util::is_month($this->mesic))
+    {
+      $return = false;
+      $this->mesic_err = "Neplatný měsíc.";
+    }
+    if(!Util::is_day($this->den,$this->mesic,$this->rok))
+    {
+      $return = false;
+      $this->den_err = "Neplatný den.";
+    }
+    if(!Util::is_number($this->hodiny))
+    {
+      $return = false;
+      $this->hodiny_err = "Počet hodin musí být číslo.";
+    }
+    if($this->hodiny<0) 
+    {
+      $return = false;
+      $this->hodiny_err = "Počet hodin nesmí být < 0!";
+    }
+    if($this->hodiny>24) 
+    {
+      $return = false;
+      $this->hodiny_err = "Počet hodin nesmí být > 24!";
+    }
+    return $return;
   }
   
   //------------------------------ private functions -------------------------------  

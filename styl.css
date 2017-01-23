@@ -1,454 +1,706 @@
-/* --- OBECNE --- */
+/* CSS Document */
 
-  div.odhlasit
-  {
-    /* problem v margin a padding */
-    position: absolute;
-    left: 0px; 
-    top: 10px;
-    border: 0px solid black; 
-    width: 99%;
-    text-align: right;
-    text-transform: lowercase;
-    font-size: medium;
-    font-family: sans-serif; 
-    text-decoration: underline overline;
-    color: Crimson;
-    font-weight: bold;
-  }
-  .prihlas_formular
-  {
-    margin: 1em;
-    border: 0px solid black;
-    font-family: sans-serif;
-  }
-  
-  .zmena_hesla_formular
-  {
-    margin: 1em;
-    border: 0px solid black;
-  }
-  
-  .add
-  {
-    margin: 1em;
-    border: 0px solid black;
-    font-family: sans-serif;
-    color: green;
-  }
-  
-  .edit
-  {
-    margin: 1em;
-    border: 0px solid black;
-    font-family: sans-serif;
-    color: red;
-  }
-  
-  .none
-  {
-    display: none;
-  }
-  
-  
-  /*
-  .nazev
-  {
-    width: 13em;
-    margin: 0px;
-    padding: 0px;
-    text-align: left;
-    font-family: sans-serif;
-    font-size: small;
-    background-color: PowderBlue;
-  }
-  
-  .nazev-sudy
-  {
-    width: 13em;
-    margin: 0px;
-    padding: 0px;
-    text-align: left;
-    font-family: sans-serif;
-    font-size: small;
-    background-color: LightSteelBlue;
-  }
 
-  .den
-  {
-    width: 2em;
-    margin: 0px;
-    padding: 0px;
-    text-align: center;
-    font-family: sans-serif;
-    font-size: small;
-  }
+/*STRANKA*/
+body
+{
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+}
+
+/*NAZEV APLIKACE*/
+div.aplikace
+{
+  margin: 0em;
+  background-color: DimGray;
+  color: white;
+  font-family: serif;
+  font-size: xx-large;
+  border: 0px solid black;
+  padding: 0.2em;
+  line-height: 200%; 
+}
+
+/*MENU*/
+div.menu
+{
+  margin: 0em;
+  background-color: DarkGray;
+  border: 0px solid black;
+  padding: 1em;
+  line-height: 200%; 
+}
+span.menu
+{
+  margin: 0em;
+  padding: 0em;
+  border: 0px solid black;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: black;
+}
+span.menuAktivni
+{
+  margin: 0em;
+  padding: 0em;
+  border: 0px solid black;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: blue;
+}
+a.menu
+{
+  padding: 0.5em;
+  border: 0px solid black;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: black;
+}
+a.menu:hover, a.menu:active, a.menu:focus
+{
+  color: Crimson;
+}
+a.menuAktivni
+{
+  padding: 0.5em;
+  border: 1px solid black;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: black;
+}
+
+/*SUBMENU*/
+div.submenu
+{
+  margin: 0em;
+  background-color: LightGray;
+  border: 0px solid black;
+  padding: 1em;
+}
+span.submenu
+{
+  margin: 0em;
+  border: 0px solid black;
+  text-transform: lowercase;
+  text-decoration: none;
+  color: black;
+}
+span.submenuAktivni
+{
+  margin: 0em;
+  border: 0px solid black;
+  text-transform: lowercase;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+a.submenu
+{
+  padding: 0.5em;
+  text-transform: lowercase;
+  text-decoration: none;
+  color: black;
+}
+a.submenu:hover, a.submenu:active, a.submenu:focus
+{
+  color: Crimson;
+}
+a.submenuAktivni
+{
+  padding: 0.5em;
+  text-transform: lowercase;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+/*OBSAH*/
+div.obsah
+{
+  margin: 0em;
+  border: 0px solid black;  
+}
+div 
+{
+  display: block;
+  vertical-align:top;
+  margin: 1em; 
+  border: 0px solid black;  
+}
+  
+/*ODHLASIT*/
+div.odhlasit
+{
+  margin: 0em;
+  position: absolute;
+  left: -0.5em; 
+  top: 1em;
+  border: 0px solid black; 
+  width: 99%;
+  text-align: right;
+}
+span.odhlasit
+{
+  font-size: small; 
+  color: black;
+  font-style: italic;
+  font-weight: bold;
+  text-decoration: none;
+}
+a.odhlasit
+{
+  text-transform: lowercase;
+  font-size: medium; 
+  text-decoration: underline overline;
+  color: white;
+  font-style: normal;
+  font-weight: normal;
+}
+
+/*INFORMATIVNI HLASKY*/
+span.info
+{
+  color: black;
+  font-style: italic;
+}
+span.infoerr
+{
+  color: red;
+  font-style: italic;
+}
+p.nadpis
+{
+  color: blue;
+  font-style: italic;
+  font-weight: bold;
+}
+p.text
+{
+  color: black;
+  font-style: normal;
+  font-weight: normal;
+}
+
+/*FIELDSET*/
+fieldset
+{
+  vertical-align:top;
+  margin: 1em;
+  display: inline-block;
+  /*padding: 5.6px;*/ 
+  border: 2px groove black;
+}
+legend
+{
+  font-weight: bold; 
+  font-size: medium;
+  line-height: 1.5; 
+  text-decoration: none;
+  color: black;  
+}
+
+/*NABIDKA*/
+div.nabidka
+{
+  display: inline;
+}
+span.nabidka
+{
+  color: black;
+  font-weight: bold;
+}
+span.aktual
+{
+  margin: 0px;
+  padding: 0.5em;
+  border: 0px solid Crimson;
+  color: black;
+  font-weight: bold;
+}
+span.red
+{
+  margin: 0px;
+  padding: 0.5em;
+  border: 0px solid Crimson;
+  color: red;
+  font-weight: bold;
+}
+span.green
+{
+  margin: 0px;
+  padding: 0.5em;
+  border: 0px solid Crimson;
+  color: green;
+  font-weight: bold;
+}
+a.nabidka
+{
+  margin: 0px;
+  padding: 0.5em;
+  border: 0px solid black;
+  text-decoration: none;
+  color: black;
+  font-weight: normal;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+a.nabidka:hover, a.nabidka:active, a.nabidka:focus
+{
+  color: Crimson;
+  font-weight: normal;
+}
+a.prev
+{
+  background-image: url("images/prev.png");
+  background-position: left center;
+}
+a.prev:hover
+{
+  background-image: url("images/prev-h.png");
+  background-position: left center;
+}
+a.next
+{
+  background-image: url("images/next.png");
+  background-position: right center;
+}
+a.next:hover
+{
+  background-image: url("images/next-h.png");
+  background-position: right center;
+}
+
+/*ODKAZY, TLACITKA, KLIKATKA*/
+a.link
+{
+  font-style: normal; 
+  font-weight: normal; 
+  text-decoration: underline;
+  color: blue;
+}
+a.link:hover, a.link:active, a.link:focus
+{
+  color: Crimson;
+}
+div.submit
+{
+  margin: 0em;
+  border: 0px solid black;
+  text-align: right;
+}
+.submit /*a, input*/
+{
+  font-style: normal; 
+  font-weight: normal; 
+  font-size: medium;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  padding: 3px;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+/* input.submit
+{
+  padding: 0px;
+}
 */
-
-/* --- BODY --- */
-
-  body.vse
-  {
-    /* pridan padding, margin */
-    margin: 0px;
-    padding:0.5em;
-    background-color: white;
-    /*background-image: url("logo2.jpg");
-    background-position: right top;
-    background-repeat: no-repeat;*/
-    border: 0em solid orange;
-  }
-
-
-
-/* --- FORM --- */
-
-  /* pridano */
-  form
-  {
-    padding: 0px;
-    margin:0px;
-    border: 0px solid blue;
-  }
-
-
-/* --- DIV --- */
-
-  /* pridano */
-  div.soucet
-  {
-    padding:0em;
-    margin:0em;
-    width:4em;
-    border: 0px solid blue;
-  }
-
-  /* pridano */
-  div.den
-  {
-    padding:0em;
-    margin:0em;
-    width:2em;
-    border: 0px solid blue;
-  }
-
-  /* pridano */
-  div.nazev
-  {
-    overflow: hidden;
-    padding:0em;
-    margin:0em;
-    padding-left:0.2em;
-    padding-right:0.3em;
-    width:13em;
-    height:1.3em;
-    border: 0px solid blue;
-  }
-
-  /* pridano */
-  div.nabidka
-  {
-    padding-bottom:1em;
-    border: 0px solid blue;
-  }
+.submit:hover, .submit:active, .submit:focus
+{
+  color: Crimson;
+}
+.submit1 /*a, input*/
+{
+  font-style: normal; 
+  font-weight: normal; 
+  font-size: medium;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  padding: 3px;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+.submit1:hover, .submit1:active, .submit1:focus
+{
+  color: blue;
+}
+.submitr /*a, input*/
+{
+  font-style: normal; 
+  font-weight: normal; 
+  font-size: medium;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  padding: 3px;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+.submitr:hover, .submitr:active, .submitr:focus
+{
+  color: red;
+}
+.submitg /*a, input*/
+{
+  font-style: normal; 
+  font-weight: normal; 
+  font-size: medium;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  padding: 3px;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+.submitg:hover, .submitg:active, .submitg:focus
+{
+  color: #00aa00;
+}
+.plus
+{
+  font-family: serif;
+  font-style: normal; 
+  text-decoration: none;
+  color: blue;
+  border: 0px solid black;
+  cursor: pointer;
+}
+.plus:hover, .plus:active, .plus:focus
+{
   
-  div.menu
-  {
-    background-color: white;
-    border: 0px solid black;
-    margin: 1em;
-  }
-  
-  div.submenu
-  {
-    background-color: white;
-    border: 0px solid black;
-    margin: 1em;
-  }
-  
-  div.obsah
-  {
-    border: 0px solid black;
-    
-  }
-  
-  div.vysvetlivky
-  {
-    display: block;
-    color: gray;
-    border: 0em;
-    border-bottom:1px dashed silver;
-  }
-  
-  div.err
-  {
-    color: red;
-    font-size: medium;
-    margin: 1em;
-  }
-
-
-/* --- TABLE --- */
-
-  table
-  {
-    border: solid black 1px;
-    table-layout: auto;
-    margin-bottom: 1em;
-    border: 0px solid red;
-  }
-
-/* --- TR --- */
-  
-    tr.lichy
-    {
-      background-color: LightCyan;
-    }
-
-    tr.sudy
-    {
-      background-color: lavender;
-    }
-
-    /* pridano */
-    tr.lichy_vypln
-    {
-      background-color: LightGoldenrodYellow;
-    }
-    /* pridano */
-    tr.sudy_vypln
-    {
-      background-color: PeachPuff;
-    }
-
-/* --- TH --- */
-
-  th
-  {
-    width: 2em;
-    height: 2em;
-    border: solid black 1px;
-  }
-
-  th.nazev
-  {
-    width: 8em;
-    background-color: LightCoral; /*White*/;
-  }
-
-  th.den
-  {
-    color: black;
-    background-color: White;
-  }
-
-  th.soucet
-  {
-    width: 4em;
-    margin: 0px;
-    padding: 0px;
-    text-align: center;
-    font-family: sans-serif;
-    font-size: medium;
-  }
-
-
-/* --- TD --- */
-  
-  td
-  {
-    border: solid black 1px;
-  }
-
-  td.den /* nove */
-  {
-    text-align: center;
-  }
-
-  td.nazev /* nove */
-  {
-    /*
-    padding-left:0.2em;
-    padding-right:0.3em;
-    overflow: hidden;
-    width:15em;
-    */
-  }
-
-  td.soucet
-  {
-    /* width: 4em; */
-    margin: 0px;
-    padding: 0px;
-    text-align: center;
-    font-family: sans-serif;
-    font-size: medium;
-    background-color: Silver;
-  }
-
-  td.soucetsoucet
-  {
-    /* width: 4em; */
-    margin: 0px;
-    padding: 0px;
-    text-align: center;
-    font-family: sans-serif;
-    font-size: medium;
-    background-color: DarkGray;
-  } 
-
-  td.prihlas_formular
-  {
-    width: 10em;
-  }
-
-  td.zmena_hesla_formular
-  {
-    width: 10em;
-  }
-
-  td.add
-  {
-    width: 10em;
-  }
-
-  td.edit
-  {
-    width: 10em;
-  }
-
-/* --- A --- */
-
-  a.menu
-  {
-    margin: 0em;
-    padding: 1em;
-    text-transform: uppercase;
-    font-size: medium;
-    font-family: sans-serif; 
-    text-decoration: none;
-    color: black;
-  }
-
-  a.menu:hover, a.menu:active, a.menu:focus
-  {
-    color: Crimson;
-  }
-
-  a.menuAktivni
-  {
-    margin: 0em;
-    padding: 1em;
-    border: 1px solid black;
-    text-transform: uppercase;
-    font-size: medium;
-    font-family: sans-serif; 
-    text-decoration: none;
-    color: blue;
-  }
-  
-  a.submenu
-  {
-    margin: 1em;
-    border: 0px solid black;
-    text-transform: lowercase;
-    font-size: medium;
-    font-family: sans-serif; 
-    text-decoration: none;
-    color: black;
-  }
-
-  a.submenu:hover, a.submenu:active, a.submenu:focus
-  {
-    color: Crimson;
-  }
-
-  a.submenuAktivni
-  {
-    margin: 1em;
-    border: 0px solid black;
-    text-transform: lowercase;
-    font-size: medium;
-    font-family: sans-serif; 
-    text-decoration: none;
-    color: blue;
-  }
-  
-  a.nabidka
-  {
-    margin: 1em;
-    font-family: sans-serif; 
-    text-decoration: none;
-    color: black;
-  }
-
-  a.nabidka:hover, a.nabidka:active, a.nabidka:focus
-  {
-    color: Crimson;
-  }
-
-  a.vypln
-  {
-    background-color: silver;
-    margin: 1em;
-    padding: 0.2em;
-    border: 3px outset gray;
-    font-family: sans-serif; 
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  a.vypln:hover, a.vypln:active, a.vypln:focus
-  {
-    color: Crimson;
-  }
-
-/* --- INPUT --- */
+}
+.minus
+{
+  font-family: serif;
+  font-style: normal; 
+  text-decoration: none;
+  color: red;
+  border: 0px solid black;
+  cursor: pointer;
+}
+.minus:hover, .minus:active, .minus:focus
+{
    
-  input.lichy
-  {
-    /* display: block; 
-    border: 0px;
-    margin: 0em;
-    padding: 0em;
-    width: 100%;
-    height: 100%; */
-    padding:0em;
-    margin:0em;
-    height:100%;
-    width:2em;
-    border:0em;
-    background-color: LightGoldenrodYellow;
-    text-align: center;
-  } 
-   /* pridano */  
-  input.lichy:focus
-  {
-    outline:none; 
-  }
+}
 
-  input.sudy
-  {
-    /*
-    display: block;
-    border: 0px;
-    margin: 0em;
-    padding: 0em;
-    width: 100%;
-    height: 100%; */
-    padding:0em;
-    margin:0em;
-    height:100%;
-    width:2em;
-    border:0em;
-    background-color: PeachPuff;
-    text-align: center;
-  } 
-  /* pridano */  
-  input.sudy:focus
-  {
-    outline:none; 
-  }
+/*HORIZONTALNI SEZNAM*/
+div.hlist
+{
+  display: inline-block;
+  margin: 0.4em;
+  padding: 0em;
+  border: 0px solid black;
+  color: black;
+}
+a.hlist
+{
+  text-decoration: none;
+  color: black;
+}
+a.hlist:hover, a.hlist:active, a.hlist:focus
+{
+  color: blue;
+}
+
+/*VERTIKALNI SEZNAM*/
+div.vlist
+{
+  margin: 1em;
+  border: 0px solid black;
+  color: black;
+}
+td.vlist
+{
+  white-space: nowrap;
+  border: 0px solid black;
+  height: 2em;
+  text-align: left;
+  vertical-align: baseline;
+}
+a.vlist
+{
+  text-decoration: none;
+  color: black;
+}
+a.vlist:hover, a.vlist:active, a.vlist:focus
+{
+  color: blue;
+}
+  
+/*TABULKY*/
+table
+{
+  border: 0px solid black;
+  margin: 0px;
+  padding: 0px;
+}
+caption
+{
+  margin: 1em;
+  text-align: left;
+}
+tr
+{
+  border: 0px solid black;
+}
+th
+{
+  white-space: nowrap;
+  border: 0px solid black;
+}
+td
+{
+  border: 0px solid black;
+}
+
+/*SEZNAMY*/
+.zvyrazneni 
+{
+  background-color: LightGray;
+}
+table.list
+{
+  border-spacing: 0px;
+  border: 1px solid black;
+  margin: 0px;
+  padding: 0px;
+}
+th.list
+{
+  font-style: italic; 
+  font-weight: bold; 
+  line-height: 1.5; 
+  text-decoration: none;
+  color: gray;
+  white-space: nowrap;
+  border: 1px solid black;
+}
+td.list
+{
+  padding:0.3em;
+  border: 1px solid black;
+}
+span.list
+{
+  color: black;
+}
+a.razeni
+{
+  font-style: italic; 
+  font-weight: bold; 
+  line-height: 1.5; 
+  color: gray;
+}
+a.razeni:hover, a.razeni:active, a.razeni:focus
+{
+  color: Crimson;
+}
+a.list
+{
+  font-weight: bold; 
+  text-decoration: none;
+  color: black;
+}
+a.list:hover, a.list:active, a.list:focus
+{
+  color: blue;
+}
+
+/*KALENDAR*/
+table.kalendar
+{
+  border-spacing: 0px;
+  border: 1px solid black;
+  margin: 0px;
+  padding: 0px;
+}
+th.kalendar
+{
+  white-space: nowrap;
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  background-color: white;
+}
+th.kalendar2
+{
+  white-space: nowrap;
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  background-color: LightGray;
+}
+td.kalendar
+{
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  background-color: white;
+}
+td.kalendar2
+{
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  background-color: LightGray;
+}
+th.sobota
+{
+  white-space: nowrap;
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  background-color: #e6e6ff;
+}
+td.sobota
+{
+  border: 1px solid black;
+  text-align: center;
+  background-color: #e6e6ff;
+}
+td.sobota2
+{
+  border: 1px solid black;
+  text-align: center;
+  background-color: #c0c0e0;
+}
+th.nedele
+{
+  white-space: nowrap;
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  background-color: #c0c0e0;
+}
+td.nedele
+{
+  border: 1px solid black;
+  text-align: center;
+  background-color: #c0c0e0;
+}
+td.nedele2
+{
+  border: 1px solid black;
+  text-align: center;
+  background-color: #a9a9d0;
+}
+th.svatek
+{
+  white-space: nowrap;
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  background-color: #c0c0e0;
+}
+td.svatek
+{
+  border: 1px solid black;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  background-color: #c0c0e0;
+}
+td.svatek2
+{
+  border: 1px solid black;
+  text-align: center;
+  background-color: #a9a9d0;
+}
+th.soucet
+{
+  font-style: italic;
+  font-weight: normal;
+  color: Gray;
+}
+input.kalendar
+{
+  padding: 0em;
+  margin: 0em;
+  height: 100%;
+  width: 100%;
+  border: 1px dotted red;
+  background-color: transparent;
+  text-align: center;
+}
+input.kalendar:focus
+{
+  outline:none; 
+}
+
+/*FORMULARE*/
+form
+{
+  padding: 0px;
+  margin:0px;
+  border: 0px solid black;
+  display: inline-block;
+}
+td.label /*popisek ve formulari (vlevo)*/
+{
+  text-align: right;
+  vertical-align: top;
+}
+span.label /*popisek ve formulari (vlevo)*/
+{
+  font-style: italic;
+  color: gray; 
+}
+td.prihlaseni
+{
+  vertical-align: top;
+}
+span.prihlaseni
+{
+  color: black;
+}
+td.zmenahesla
+{
+  vertical-align: top;
+}
+span.zmenahesla
+{
+  color: black;
+}
+td.detail 
+{
+  vertical-align: top;
+}
+span.detail
+{
+  color: black;
+}
+td.edit
+{
+  vertical-align: top;
+}
+span.edit
+{
+  color: black;
+}
+div.add
+{
+  margin: 1em;
+  border: 0px solid black;  
+}
+td.add
+{
+  vertical-align: top;
+}
+span.add
+{
+  color: black;
+}
+span.err
+{
+  color: red;
+  font-style: italic;
+}
 

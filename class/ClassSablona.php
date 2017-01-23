@@ -5,17 +5,17 @@ class Sablona
   {
 	  // hlavni menu
     $menu = '';  
-		$menu .= '<a class="menu'.Util::jeAktivni("index.php").'" href="./index.php">home</a>';
-    //$menu .= '|';
-		$menu .= '<a class="menu'.Util::jeAktivni("lide.php").'" href="./lide.php">lidé</a>';
-		$menu .= '<a class="menu'.Util::jeAktivni("zakazky.php").'" href="./zakazky.php">zakázky</a>';
-		$menu .= '<a class="menu'.Util::jeAktivni("working-time.php").'" href="./working-time.php">working time</a>';
-		$menu .= '<a class="menu'.Util::jeAktivni("info.php").'" href="./info.php">info</a>';
+		$menu .= '<span class="menu'.Util::jeAktivni("index.php").'"><a class="menu'.Util::jeAktivni("index.php").'" href="./index.php">home</a></span>';
+    $menu .= '<span class="menu'.Util::jeAktivni("index.php").'"><a class="menu'.Util::jeAktivni("lide.php").'" href="./lide.php">lidé</a></span>';
+		$menu .= '<span class="menu'.Util::jeAktivni("index.php").'"><a class="menu'.Util::jeAktivni("zakazky.php").'" href="./zakazky.php">zakázky</a></span>';
+		$menu .= '<span class="menu'.Util::jeAktivni("index.php").'"><a class="menu'.Util::jeAktivni("working-time.php").'" href="./working-time.php">working time</a></span>';
+		$menu .= '<span class="menu'.Util::jeAktivni("index.php").'"><a class="menu'.Util::jeAktivni("info.php").'" href="./info.php">info</a></span>';
     
 		$odhlasit = '';	
 		if($logged = Util::is_logged())
 		{
-		  $odhlasit .= '<a class="odhlasit" href="index.php?logout">Odhlásit</a>';
+		  $odhlasit .= '<span class="odhlasit">'.$logged->get_jmeno().' '.$logged->get_prijmeni().'</span>
+                    <span class="odhlasit"><a class="odhlasit" href="index.php?logout">Odhlásit</a></span>';
 		}
 	
 		return 
@@ -27,10 +27,9 @@ class Sablona
   			     <link rel="stylesheet" type="text/css" media="all" href="'.$dir_root.'styl.css">
   		  		<title>'.$title.'</title>
   			</head>
-  			<body class="vse">
-  				<h1>Working Time v2.3</h1>
+  			<body>
+  				<div class="aplikace">Working Time v2.3</div>
   				<div class="menu">'.$menu.'</div>
-  				<br>
   				<div class="obsah">'.$obsah.'</div>
   				<div class="odhlasit">'.$odhlasit.'</div>         
   			</body>
